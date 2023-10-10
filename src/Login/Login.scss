@@ -1,0 +1,11 @@
+@import "../mixins";
+
+.contener {
+    @include d-flex(column, space-between, center);
+    height: 100vh;
+    form {
+        @include d-flex(column, flex-start, flex-start);
+        background-color: bisque;
+        padding: 1rem;
+    }
+}

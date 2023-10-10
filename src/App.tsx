@@ -1,10 +1,13 @@
 import React from 'react';
+import "./App.scss";
+import { Route, Routes } from 'react-router-dom';
+import Login from './Login/Login.page';
 
 function App() {
   return (
-    <div>
-      Hello world
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+    </Routes>
   );
 }
 
