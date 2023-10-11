@@ -1,0 +1,19 @@
+@import "../mixins";
+@import "../variables";
+
+.todo-contener {
+    @include d-flex(column, space-between, center);
+    height: 100vh;
+
+    header {
+        width: 100%;
+        ul {
+            @include d-flex(row, flex-start, flex-start);
+            list-style: none;
+
+            li {
+                margin-right: 1rem;
+            }
+        }
+    }
+}
