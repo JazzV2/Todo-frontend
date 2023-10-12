@@ -1,0 +1,9 @@
+@import "/src/variables";
+
+footer {
+    background-color: $main-color;
+    border: 2px solid $third-color;
+    width: 100%;
+    text-align: center;
+    padding: 3rem;
+}

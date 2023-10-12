@@ -1,6 +1,7 @@
 import React from "react";
 import "./Login.scss";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer/Footer";
 
 const Login = () => {
   return (
@@ -16,11 +17,7 @@ const Login = () => {
           <button>Sign up</button>
         </div>
       </form>
-      <footer>
-        &copy; 2023 All rights reserved
-        <br />
-        Author: Adam Gruszczyński
-      </footer>
+      <Footer />
     </div>
   );
 };

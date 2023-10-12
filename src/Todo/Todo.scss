@@ -2,18 +2,36 @@
 @import "../variables";
 
 .todo-contener {
-    @include d-flex(column, space-between, center);
-    height: 100vh;
+  @include d-flex(column, space-between, center);
+  height: 100vh;
 
-    header {
-        width: 100%;
-        ul {
-            @include d-flex(row, flex-start, flex-start);
-            list-style: none;
-
-            li {
-                margin-right: 1rem;
-            }
-        }
+  header {
+    h1 {
+        margin-top: 1rem;
+        margin-left: 2rem;
     }
+    width: 100%;
+    nav {
+        @include d-flex(row, space-between, center);
+        background-color: $main-color;
+        padding: 2rem;
+        border-top: 2px solid $third-color;
+        border-bottom: 2px solid $third-color;
+        margin-top: 1rem;
+
+      ul {
+        @include d-flex(row, flex-start, flex-start);
+        list-style: none;
+
+        li {
+          margin-right: 1rem;
+          border-bottom: 2px solid $secondary-color;
+        }
+
+        li:last-child {
+            margin-right: 0;
+        }
+      }
+    }
+  }
 }
