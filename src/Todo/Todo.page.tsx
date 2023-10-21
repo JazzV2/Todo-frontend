@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Todo.scss";
 import Footer from "../components/Footer/Footer";
+import Task from "../components/Task/Task";
 
 const Todo = () => {
   const getDate = (today: Date): string => {
@@ -35,13 +36,15 @@ const Todo = () => {
           <ul>
             <li>
               <h3>Todo</h3>
+              <div className="line"></div>
             </li>
             <li>
               <h3>Account</h3>
+              <div className="line"></div>
             </li>
           </ul>
           <ul>
-            <li>
+            <li style={{cursor: "auto"}}>
               <h3>{getDate(currentDate)}</h3>
             </li>
             <li>
@@ -51,8 +54,13 @@ const Todo = () => {
         </nav>
       </header>
       <div className="todo">
-        <div className="important">Important</div>
-        <div className="optional">Optional</div>
+        <div className="section important">
+          <h3>Important</h3>
+          <Task />
+        </div>
+        <div className="section optional">
+          <h3>Optional</h3>
+        </div>
       </div>
       <Footer />
     </div>

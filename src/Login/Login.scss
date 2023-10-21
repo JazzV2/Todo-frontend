@@ -40,7 +40,6 @@
     }
 
     .buttons_field {
-        //@include d-flex(row, space-between, center);
         $width-button: 5rem;
         $height-button: 2rem;
 
@@ -60,7 +59,7 @@
             border: none;
             background-color: $third-color;
             border-radius: 1rem;
-            box-shadow: 2px 3px 10px rgb(119, 119, 119);
+            box-shadow: $shadow;
             width: $width-button;
             height: $height-button;
             font-size: large;

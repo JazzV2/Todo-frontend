@@ -25,13 +25,50 @@
 
         li {
           margin-right: 1rem;
-          border-bottom: 2px solid $secondary-color;
+          cursor: pointer;
+          user-select: none;
+          font-size: large;
+
+          .line {
+            background-color: $secondary-color;
+            width: 0;
+            height: 3px;
+            border-radius: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+            transition: 0.3s;
+          }
+        }
+
+        li:hover {
+          .line {
+            width: 100%;
+          }
         }
 
         li:last-child {
             margin-right: 0;
         }
       }
+    }
+  }
+
+  .todo {
+    @include d-flex(row, center, flex-start);
+    height: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    .section {
+      width: 50vw;
+      padding-left: 2rem;
+      padding-right: 1rem;
+      font-size: large;
+    }
+
+    .section:last-child {
+      padding-left: 1rem;
+      padding-right: 2rem;
     }
   }
 }
