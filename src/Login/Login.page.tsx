@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.scss";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import { ILogin } from "../interfaces/User";
 import httpModule from "../helpers/http.module";

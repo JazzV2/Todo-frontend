@@ -2,67 +2,83 @@ import React, { useEffect, useState } from "react";
 import "./Todo.scss";
 import Footer from "../components/Footer/Footer";
 import Task from "../components/Task/Task";
+import httpModule from "../helpers/http.module";
+import { token } from "../Login/Login.page";
+import { ITask } from "../interfaces/Todo";
+import Header from "../components/Header/Header";
+import AddEditTask from "../components/AddEditTask/AddEditTask";
 
 const Todo = () => {
-  const getDate = (today: Date): string => {
-    const day =
-      today.getDate() + 1 < 10 ? `0${today.getDate()}` : today.getDate();
-    const month =
-      today.getMonth() + 1 < 10
-        ? `0${today.getMonth() + 1}`
-        : today.getMonth() + 1;
-    const year = today.getFullYear();
-    const hour =
-      today.getHours() < 10 ? `0${today.getHours()}` : today.getHours();
-    const minute =
-      today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
-    const second =
-      today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds();
-
-    return `${day}.${month}.${year} ${hour}:${minute}:${second}`;
-  };
-
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [task, setTask] = useState<ITask[]>([]);
 
   useEffect(() => {
-    setInterval(() => setCurrentDate(new Date()), 1000);
+    httpModule
+      .get("/ToDo/Get", { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => setTask(response.data))
+      .catch((error) => console.log(error));
   }, []);
 
+  const giveImportant = (task: ITask[]) => {
+    let importantTask = [];
+    for (let i of task) {
+      if (i.isImportant) importantTask.push(i);
+    }
+
+    return importantTask.map((task) => (
+      <Task
+        updatedAt={task.updatedAt}
+        id={task.id}
+        title={task.title}
+        description={task.description}
+        isDone={task.isDone}
+        isImportant={task.isImportant}
+        key={task.id}
+      />
+    ));
+  };
+
+  const giveOptional = (task: ITask[]) => {
+    let optionalTask = [];
+    for (let i of task) {
+      if (!i.isImportant) optionalTask.push(i);
+    }
+
+    return optionalTask.map((task) => (
+      <Task
+        updatedAt={task.updatedAt}
+        id={task.id}
+        title={task.title}
+        description={task.description}
+        isDone={task.isDone}
+        isImportant={task.isImportant}
+        key={task.id}
+      />
+    ));
+  };
+
   return (
-    <div className="todo-contener">
-      <header>
-        <h1>Todo Application</h1>
-        <nav>
-          <ul>
-            <li>
-              <h3>Todo</h3>
-              <div className="line"></div>
-            </li>
-            <li>
-              <h3>Account</h3>
-              <div className="line"></div>
-            </li>
-          </ul>
-          <ul>
-            <li style={{cursor: "auto"}}>
-              <h3>{getDate(currentDate)}</h3>
-            </li>
-            <li>
-              <button><h3>Log out</h3></button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <div className="todo">
-        <div className="section important">
-          <h3>Important</h3>
-          <Task />
+    <div>
+      <AddEditTask />
+      <div className="todo-contener no-active">
+        <Header />
+        <div className="todo">
+          <div className="section important">
+            <div className="section-title">
+              <h3>Important</h3>
+              <span className="material-symbols-outlined">add</span>
+            </div>
+            {giveImportant(task)}
+          </div>
+          <div className="section optional">
+            <div className="section-title">
+              <h3>Optional</h3>
+              <span className="material-symbols-outlined">add</span>
+            </div>
+            {giveOptional(task)}
+          </div>
         </div>
-        <div className="section optional">
-          <h3>Optional</h3>
-        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };

@@ -5,54 +5,6 @@
   @include d-flex(column, space-between, center);
   height: 100vh;
 
-  header {
-    h1 {
-        margin-top: 1rem;
-        margin-left: 2rem;
-    }
-    width: 100%;
-    nav {
-        @include d-flex(row, space-between, center);
-        background-color: $main-color;
-        padding: 2rem;
-        border-top: 2px solid $third-color;
-        border-bottom: 2px solid $third-color;
-        margin-top: 1rem;
-
-      ul {
-        @include d-flex(row, flex-start, flex-start);
-        list-style: none;
-
-        li {
-          margin-right: 1rem;
-          cursor: pointer;
-          user-select: none;
-          font-size: large;
-
-          .line {
-            background-color: $secondary-color;
-            width: 0;
-            height: 3px;
-            border-radius: 1rem;
-            margin-left: auto;
-            margin-right: auto;
-            transition: 0.3s;
-          }
-        }
-
-        li:hover {
-          .line {
-            width: 100%;
-          }
-        }
-
-        li:last-child {
-            margin-right: 0;
-        }
-      }
-    }
-  }
-
   .todo {
     @include d-flex(row, center, flex-start);
     height: 100%;
@@ -64,6 +16,19 @@
       padding-left: 2rem;
       padding-right: 1rem;
       font-size: large;
+
+      .section-title {
+        @include d-flex(row, flex-start, flex-start);
+
+        span {
+          cursor: pointer;
+          user-select: none;
+        }
+
+        span:hover {
+          font-weight: bold;
+        }
+      }
     }
 
     .section:last-child {
@@ -71,4 +36,10 @@
       padding-right: 2rem;
     }
   }
+}
+
+.no-active {
+  pointer-events: none;
+  user-select: none;
+  opacity: 20%;
 }

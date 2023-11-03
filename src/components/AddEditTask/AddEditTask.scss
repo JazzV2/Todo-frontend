@@ -1,0 +1,15 @@
+@import "../../mixins";
+@import "../../variables";
+
+$width-panel: 50vw;
+$height-panel: 50vh;
+
+.task-panel {
+    position: fixed;
+    width: $width-panel;
+    height: $height-panel;
+    z-index: 1;
+    top: calc($height-panel/2);
+    right: calc($width-panel/2);
+    background-color: bisque;
+}

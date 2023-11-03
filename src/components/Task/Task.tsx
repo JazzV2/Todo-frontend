@@ -1,17 +1,17 @@
 import React from "react";
 import "./Task.scss";
+import { ITask } from "../../interfaces/Todo";
+import { getDate } from "../../functions/DateFormat";
 
-const Task = () => {
+const Task = (task: ITask) => {
   return (
     <div className="task">
       <div className="task-left">
         <h3>
-          Something todo <sup>21.10.2023 10:30</sup>
+          {task.title} <sup>{getDate(new Date(task.updatedAt))}</sup>
         </h3>
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam
-          dicta, possimus similique rerum odit maxime magni aliquam vitae quos
-          beatae, dolores nisi, nam eius atque.
+          {task.description}
         </p>
       </div>
       <div className="task-right">
