@@ -10,6 +10,8 @@ import AddEditTask from "../components/AddEditTask/AddEditTask";
 
 const Todo = () => {
   const [task, setTask] = useState<ITask[]>([]);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [todoActive, setTodoActive] = useState<string>("");
 
   useEffect(() => {
     httpModule
@@ -56,16 +58,28 @@ const Todo = () => {
     ));
   };
 
+  const addEditPanel = (active: boolean) => {
+    if (active)
+      return ""
+    else
+      return " no-active"
+  }
+
+  const openOrClosePanel = () => {
+    setIsActive(prev => !prev);
+    setTodoActive(prev => prev.length > 0 ? "" : "no-active-todo");
+  }
+
   return (
     <div>
-      <AddEditTask />
-      <div className="todo-contener no-active">
+      <AddEditTask active={addEditPanel(isActive)} />
+      <div className={`todo-contener ${todoActive}`}>
         <Header />
         <div className="todo">
           <div className="section important">
             <div className="section-title">
               <h3>Important</h3>
-              <span className="material-symbols-outlined">add</span>
+              <span className="material-symbols-outlined" onClick={openOrClosePanel}>add</span>
             </div>
             {giveImportant(task)}
           </div>

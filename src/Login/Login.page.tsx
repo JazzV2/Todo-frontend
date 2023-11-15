@@ -25,10 +25,10 @@ const Login = () => {
     <div className="contener">
       <h1>Todo Application</h1>
       <form>
-        <label>Username</label>
-        <input type="text" id="first" value={login.username} onChange={(e) => setLogin({...login, username: e.target.value})} />
-        <label>Password</label>
-        <input type="password" value={login.password} onChange={(e) => setLogin({...login, password: e.target.value})} />
+        <label htmlFor="Username" >Username</label>
+        <input type="text" id="Username" value={login.username} onChange={(e) => setLogin({...login, username: e.target.value})} />
+        <label htmlFor="Password">Password</label>
+        <input type="password" id="Password" value={login.password} onChange={(e) => setLogin({...login, password: e.target.value})} />
         <div className="buttons_field">
           <button type="button" onClick={handleClickLogin}>Log in</button>
           <button type="button">Sign up</button>

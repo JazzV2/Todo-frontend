@@ -2,7 +2,12 @@
 @import "../../variables";
 
 $width-panel: 50vw;
-$height-panel: 50vh;
+$height-panel: 55vh;
+$background-input: #f7f7f7;
+
+.no-active {
+    display: none;
+}
 
 .task-panel {
     position: fixed;
@@ -11,5 +16,74 @@ $height-panel: 50vh;
     z-index: 1;
     top: calc($height-panel/2);
     right: calc($width-panel/2);
-    background-color: bisque;
+    background-color: $main-color;
+    padding: 1rem;
+    border: 2px solid $third-color;
+    border-radius: 1.5rem;
+    
+    form {
+        @include d-flex(column, center, flex-start);
+        
+        label {
+            margin-bottom: 1rem;
+            font-size: large;
+        }
+
+        input {
+            background-color: $background-input;
+            border: 2px solid $third-color;
+            border-radius: 1rem;
+            padding: 0.3rem;
+            width: 100%;
+            margin-bottom: 1rem;
+            font-size: large;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: $secondary-color;
+        }
+
+        textarea {
+            resize: none;
+            width: 100%;
+            height: $height-panel*0.45;
+            background-color: $main-color;
+            margin-bottom: 1rem;
+            font-size: medium;
+            background-color: $background-input;
+            border: 2px solid $third-color;
+            border-radius: 1rem;
+            padding: 0.3rem;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: $secondary-color;
+        }
+    }
+
+    .buttons {
+        @include d-flex(row, space-between, center);
+        width: 100%;
+
+        $width-button: 5rem;
+        $height-button: 2rem;
+
+        button {
+            border: none;
+            background-color: $background-input;
+            border: 2px solid $third-color;
+            border-radius: 1rem;
+            width: $width-button;
+            height: $height-button;
+            font-size: large;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        button:hover {
+            border-color: $secondary-color;
+        }
+    }
 }
