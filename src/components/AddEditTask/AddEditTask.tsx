@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddEditTask.scss";
-import { AddEdit } from "../../interfaces/AddEditT";
+import { AddEdit, CreateTask, TextTask } from "../../interfaces/AddEditT";
 import { openOrClosePanel } from "../../Todo/Todo.page";
+import httpModule from "../../helpers/http.module";
+import { token } from "../../Login/Login.page";
 
 const AddEditTask = (params: AddEdit) => {
+  const[text, setText] = useState<TextTask>({title: params.title, description: params.description});
+
+  const onButton = (toSave: boolean) =>{
+    setText({title: "", description: ""});
+    openOrClosePanel(params.isImportant, params.isCreated, toSave);
+  };
+
+  const onSaveButton = () =>{
+    if (!params.isCreated){
+      let create: CreateTask = {title: text.title, description: text.description, isImportant: params.isImportant}
+      httpModule.post("/ToDo/Create", create, { headers: { Authorization: `Bearer ${token}` } })
+      .then(response => {
+        onButton(true);
+      })
+      .catch(error => console.log(error));
+    }
+  };
+
   return (
     <div className={`task-panel${params.active}`}>
       <form>
         <label htmlFor="title">Title</label>
-        <input type="text" className="title" id="title" />
+        <input type="text" className="title" id="title" value={text.title} onChange={(e)=>setText({...text, title: e.target.value})} />
         <label htmlFor="title">Description</label>
-        <textarea id="description"></textarea>
+        <textarea id="description" value={text.description} onChange={(e)=>setText({...text, description: e.target.value})} ></textarea>
         <div className="buttons">
-          <button type="button">Save</button>
-          <button type="button" onClick={()=>openOrClosePanel(params.isImportant)}>Cancel</button>
+          <button type="button" onClick={onSaveButton} >Save</button>
+          <button type="button" onClick={()=>onButton(false)}>Cancel</button>
         </div>
       </form>
     </div>

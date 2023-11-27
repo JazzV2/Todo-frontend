@@ -8,13 +8,14 @@ import { ITask } from "../interfaces/Todo";
 import Header from "../components/Header/Header";
 import AddEditTask from "../components/AddEditTask/AddEditTask";
 
-export let openOrClosePanel = (isImportant: boolean) => {};
+export let openOrClosePanel = (isImportant: boolean, isCreated: boolean, toSave: boolean) => {};
 
 const Todo = () => {
   const [task, setTask] = useState<ITask[]>([]);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [todoActive, setTodoActive] = useState<string>("");
   const [isImportant, setIsImportant] = useState<boolean>(true);
+  const [isCreated, setIsCreated] = useState<boolean>(false);
 
   useEffect(() => {
     httpModule
@@ -68,29 +69,37 @@ const Todo = () => {
       return " no-active"
   }
 
-  openOrClosePanel = (isImportant: boolean) => {
+  openOrClosePanel = (isImportant: boolean, isCreated: boolean, toSave: boolean) => {
     setIsActive(prev => !prev);
     setTodoActive(prev => prev.length > 0 ? "" : "no-active-todo");
     setIsImportant(isImportant);
+    setIsCreated(isCreated);
+
+    if (toSave){
+      httpModule
+      .get("/ToDo/Get", { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => setTask(response.data))
+      .catch((error) => console.log(error));
+    }
   }
 
   return (
     <div>
-      <AddEditTask active={addEditPanel(isActive)} isImportant={isImportant} />
+      <AddEditTask active={addEditPanel(isActive)} isImportant={isImportant} isCreated={isCreated} title="" description="" />
       <div className={`todo-contener ${todoActive}`}>
         <Header />
         <div className="todo">
           <div className="section important">
             <div className="section-title">
               <h3>Important</h3>
-              <span className="material-symbols-outlined" onClick={()=>openOrClosePanel(true)} >add</span>
+              <span className="material-symbols-outlined" onClick={()=>openOrClosePanel(true, false, false)} >add</span>
             </div>
             {giveImportant(task)}
           </div>
           <div className="section optional">
             <div className="section-title">
               <h3>Optional</h3>
-              <span className="material-symbols-outlined" onClick={()=>openOrClosePanel(false)} >add</span>
+              <span className="material-symbols-outlined" onClick={()=>openOrClosePanel(false, false, false)} >add</span>
             </div>
             {giveOptional(task)}
           </div>
