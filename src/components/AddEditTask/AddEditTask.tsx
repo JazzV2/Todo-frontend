@@ -1,6 +1,7 @@
 import React from "react";
 import "./AddEditTask.scss";
 import { AddEdit } from "../../interfaces/AddEditT";
+import { openOrClosePanel } from "../../Todo/Todo.page";
 
 const AddEditTask = (params: AddEdit) => {
   return (
@@ -12,7 +13,7 @@ const AddEditTask = (params: AddEdit) => {
         <textarea id="description"></textarea>
         <div className="buttons">
           <button type="button">Save</button>
-          <button type="button">Cancel</button>
+          <button type="button" onClick={()=>openOrClosePanel(params.isImportant)}>Cancel</button>
         </div>
       </form>
     </div>
