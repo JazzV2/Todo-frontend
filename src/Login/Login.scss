@@ -1,11 +1,82 @@
 @import "../mixins";
+@import "../variables";
 
 .contener {
     @include d-flex(column, space-between, center);
     height: 100vh;
+
+    h1 {
+        position: relative;
+        top: 12vh;
+        margin-bottom: 2rem;
+    }
+
     form {
         @include d-flex(column, flex-start, flex-start);
-        background-color: bisque;
+        background-color: $main-color;
+        width: 40%;
         padding: 1rem;
+        border-radius: 1rem;
+        font-size: large;
+        box-shadow: 5px 5px 10px rgb(119, 119, 119);
+
+        input {
+            border: none;
+            background-color: $main-color;
+            border-bottom: 2px solid $secondary-color;
+            padding: 5px;
+            margin: 0;
+            font-size: large;
+            width: 80%;
+        }
+
+        #first {
+            margin-bottom: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+        }
+    }
+
+    .buttons_field {
+        $width-button: 5rem;
+        $height-button: 2rem;
+
+        display: grid;
+        grid-template-columns: $width-button $width-button;
+        grid-template-rows: $height-button;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 1rem;
+
+        a {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            border: none;
+            background-color: $third-color;
+            border-radius: 1rem;
+            box-shadow: $shadow;
+            width: $width-button;
+            height: $height-button;
+            font-size: large;
+            cursor: pointer;
+            transition: 0.1s;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button:hover {
+            background-color: $third-color-hover;
+        }
+
+        button:focus {
+            width: $width-button*0.9;
+            height: $height-button*0.9;
+            font-size: 18px*0.9;
+        }
     }
 }

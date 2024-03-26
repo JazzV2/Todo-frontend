@@ -1,0 +1,45 @@
+@import "../mixins";
+@import "../variables";
+
+.todo-contener {
+  @include d-flex(column, space-between, center);
+  height: 100vh;
+
+  .todo {
+    @include d-flex(row, center, flex-start);
+    height: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    .section {
+      width: 50vw;
+      padding-left: 2rem;
+      padding-right: 1rem;
+      font-size: large;
+
+      .section-title {
+        @include d-flex(row, flex-start, flex-start);
+
+        span {
+          cursor: pointer;
+          user-select: none;
+        }
+
+        span:hover {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .section:last-child {
+      padding-left: 1rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+.no-active-todo {
+  pointer-events: none;
+  user-select: none;
+  opacity: 20%;
+}
