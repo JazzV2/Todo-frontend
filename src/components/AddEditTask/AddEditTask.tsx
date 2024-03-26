@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AddEditTask.scss";
-import { AddEdit, CreateTask, TextTask } from "../../interfaces/AddEditT";
+import { AddEdit, CreateTask, EditTask, TextTask } from "../../interfaces/AddEditT";
 import { openOrClosePanel } from "../../Todo/Todo.page";
 import httpModule from "../../helpers/http.module";
 import { token } from "../../Login/Login.page";
 
 const AddEditTask = (params: AddEdit) => {
-  const[text, setText] = useState<TextTask>({title: params.title, description: params.description});
+  const [text, setText] = useState<TextTask>({title: params.title, description: params.description});
+  useEffect(()=>{
+    setText({title: params.title, description: params.description});
+  }, [params.title, params.description]);
 
   const onButton = (toSave: boolean) =>{
     setText({title: "", description: ""});
-    openOrClosePanel(params.isImportant, params.isCreated, toSave);
+    openOrClosePanel(params.isImportant, params.isCreated, toSave, "", "", "");
   };
 
   const onSaveButton = () =>{
@@ -21,6 +24,13 @@ const AddEditTask = (params: AddEdit) => {
         onButton(true);
       })
       .catch(error => console.log(error));
+    }else{
+      let edit: EditTask = {newTitle: text.title, newDescription: text.description}
+      httpModule.patch(`/ToDo/Edit${params.id}`, edit, {headers: {Authorization: `Bearer ${token}`}})
+      .then(response => {
+        onButton(true)
+      })
+      .catch(error => console.log(error))
     }
   };
 

@@ -2,8 +2,14 @@ import React from "react";
 import "./Task.scss";
 import { ITask } from "../../interfaces/Todo";
 import { getDate } from "../../functions/DateFormat";
+import { onDeleteButton, openOrClosePanel } from "../../Todo/Todo.page";
 
 const Task = (task: ITask) => {
+
+  const onEditButton = () => {
+    openOrClosePanel(task.isImportant, true, false, task.id, task.title, task.description)
+  };
+
   return (
     <div className="task">
       <div className="task-left">
@@ -16,8 +22,8 @@ const Task = (task: ITask) => {
       </div>
       <div className="task-right">
         <span className="material-symbols-outlined">done</span>
-        <span className="material-symbols-outlined">edit</span>
-        <span className="material-symbols-outlined">delete_forever</span>
+        <span className="material-symbols-outlined" onClick={onEditButton}>edit</span>
+        <span className="material-symbols-outlined" onClick={()=>onDeleteButton(task.id)}>delete_forever</span>
       </div>
     </div>
   );
